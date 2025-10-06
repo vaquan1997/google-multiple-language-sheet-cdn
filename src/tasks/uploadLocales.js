@@ -1,13 +1,24 @@
-import { uploadToCDN } from '../services/cdnService';
-import { logError, logInfo } from '../utils/logger';
+import axios from 'axios';
+import config from '../config/index.js';
+import { logError, logInfo } from '../utils/logger.js';
 
-export async function uploadLocales() {
+export const uploadToCDN = async () => {
   try {
-    const response = await uploadToCDN();
-    logInfo('Triggered Vercel deploy hook to publish locale files.');
-    return response;
+    if (!config.vercelDeployHookUrl) {
+      throw new Error('Missing VERCEL_DEPLOY_HOOK_URL');
+    }
+    const response = await axios.post(config.vercelDeployHookUrl);
+    logInfo('Vercel deploy hook triggered successfully.');
+    return response.data;
   } catch (error) {
     logError('Failed to trigger Vercel deploy hook:', error);
     throw error;
   }
-}
+};
+
+export const getLocaleUrl = (locale) => {
+  if (!config.vercelBaseUrl) {
+    throw new Error('Missing VERCEL_BASE_URL');
+  }
+  return `${config.vercelBaseUrl}/locales/${locale}.json`;
+};

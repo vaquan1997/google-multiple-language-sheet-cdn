@@ -1,12 +1,19 @@
-import dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
-const config = {
-  cdnUrl: process.env.CDN_URL || 'https://default-cdn-url.com',
-  apiKey: process.env.CDN_API_KEY || 'your-default-api-key',
-  spreadsheetId: process.env.SPREADSHEET_ID || 'your-default-spreadsheet-id',
-  locales: ['en', 'vi'],
+module.exports = {
+  googleSheets: {
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    apiKey: process.env.GOOGLE_API_KEY,
+    range: 'Sheet1!A1:Z1000'
+  },
+  cdn: {
+    provider: process.env.CDN_PROVIDER || 'cloudinary',
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET
+  },
+  output: {
+    folder: 'dist/languages',
+    fileName: 'translations.json'
+  }
 };
-
-export default config;

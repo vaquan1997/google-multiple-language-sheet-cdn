@@ -11,7 +11,10 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.17.0",
+    "googleapis": "^128.0.0",
+       "cloudinary": "^1.41.0",
+    "node-cron": "^3.0.3"
   },
   "devDependencies": {
     "jest": "^27.0.0"
