@@ -1,0 +1,7 @@
+locale,key,value
+en,greeting,Hello
+en,farewell,Goodbye
+vi,greeting,Xin chào
+vi,farewell,Tạm biệt
+ja,greeting,こんにちは
+ja,farewell,さようなら

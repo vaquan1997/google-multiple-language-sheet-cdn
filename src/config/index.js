@@ -11,7 +11,8 @@ const config = {
     provider: process.env.CDN_PROVIDER || 'cloudinary',
     cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     apiKey: process.env.CLOUDINARY_API_KEY,
-    apiSecret: process.env.CLOUDINARY_API_SECRET
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    uploadUrl: `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}`
   },
   output: {
     folder: 'dist/languages',
