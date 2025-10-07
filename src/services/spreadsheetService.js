@@ -1,6 +1,5 @@
-import xlsx from 'xlsx';
-import fs from 'fs';
 import path from 'path';
+import xlsx from 'xlsx';
 
 const SPREADSHEET_PATH = path.join(__dirname, '../../data/sample/locales.xlsx');
 

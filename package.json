@@ -2,6 +2,7 @@
   "name": "language-upload-tool",
   "version": "1.0.0",
   "description": "A tool to upload language data from a spreadsheet to a CDN.",
+  "type": "module",
   "main": "src/cli.js",
   "scripts": {
     "build": "node src/tasks/buildLocales.js",

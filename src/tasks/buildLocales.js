@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { parseLanguageData, readSpreadsheet } from '../services/spreadsheetService';
-import { logError, logInfo } from '../utils/logger';
+import { parseLanguageData, readSpreadsheet } from '../services/spreadsheetService.js';
+import { logError, logInfo } from '../utils/logger.js';
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public/locales');
 
