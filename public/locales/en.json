@@ -1,5 +1,8 @@
 {
   "cancel": "Cancel",
   "create": "Create",
-  "write_vietnamese_content_first_and_it_will_automatically_generate_english_can_edit_english": "Write Vietnamese content first and it will automatically generate English, can edit English"
+  "write_vietnamese_content_first_and_it_will_automatically_generate_english_can_edit_english": "Write Vietnamese content first and it will automatically generate English, can edit English",
+  "adhd_testing": "ADHD testing",
+  "diagnose": "Diagnose",
+  "other_information": "Other information"
 }

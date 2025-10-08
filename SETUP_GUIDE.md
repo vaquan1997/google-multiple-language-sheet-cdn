@@ -49,8 +49,8 @@ Copy the SHEET_ID part to your .env file.
 ### 2.2 Update .env File
 Replace the placeholder values in your .env file:
 ```env
-GOOGLE_SHEET_ID=1nvtHj_wVAySqAXPIXqeM8_jkYDyRlyj59Eh4yarw8lk
-GOOGLE_API_KEY=AIzaSyAw8jC-cE-OBvBwWmyo0E4bn9Oxt1oR4Mk
+GOOGLE_SHEET_ID=your_google_sheet_id
+GOOGLE_API_KEY=your_google_api_key
 CLOUDINARY_CLOUD_NAME=your_actual_cloud_name
 CLOUDINARY_API_KEY=your_actual_api_key  
 CLOUDINARY_API_SECRET=your_actual_api_secret

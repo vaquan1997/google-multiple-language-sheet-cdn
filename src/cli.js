@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import dotenv from 'dotenv';
 import { Command } from 'commander';
-import path from 'path';
+import dotenv from 'dotenv';
 import fs from 'fs/promises';
-import { logInfo, logSuccess, logError } from './utils/logger.js';
-import { buildLocales } from './tasks/buildLocales.js';
-import { readSpreadsheet, parseLanguageData } from './services/spreadsheetService.js';
+import path from 'path';
 import { uploadToCDN } from './services/cdnService.js';
+import { parseLanguageData, readSpreadsheet } from './services/spreadsheetService.js';
+import { buildLocales } from './tasks/buildLocales.js';
+import { logError, logInfo, logSuccess } from './utils/logger.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -130,8 +130,8 @@ Copy the SHEET_ID part to your .env file.
 ### 2.2 Update .env File
 Replace the placeholder values in your .env file:
 \`\`\`env
-GOOGLE_SHEET_ID=1nvtHj_wVAySqAXPIXqeM8_jkYDyRlyj59Eh4yarw8lk
-GOOGLE_API_KEY=AIzaSyAw8jC-cE-OBvBwWmyo0E4bn9Oxt1oR4Mk
+GOOGLE_SHEET_ID=your_actual_sheet_id
+GOOGLE_API_KEY=your_actual_api_key
 CLOUDINARY_CLOUD_NAME=your_actual_cloud_name
 CLOUDINARY_API_KEY=your_actual_api_key  
 CLOUDINARY_API_SECRET=your_actual_api_secret
