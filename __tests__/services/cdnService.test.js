@@ -1,20 +1,27 @@
-// __tests__/services/cdnService.test.js
-import axios from 'axios';
-import { deleteLanguageData, uploadLanguageData, uploadToCDN } from '../../src/services/cdnService.js';
+import { v2 as cloudinary } from 'cloudinary';
+import { uploadToCDN } from '../../src/services/cdnService.js';
 import { logError, logInfo } from '../../src/utils/logger.js';
 
-jest.mock('axios');
+jest.mock('cloudinary');
 jest.mock('../../src/utils/logger.js');
 jest.mock('../../src/config/index.js', () => ({
-  cdn: {
-    uploadUrl: 'https://api.cloudinary.com/v1_1/test-cloud',
-    apiKey: 'test-api-key'
+  default: {
+    cdn: {
+      cloudName: 'test-cloud',
+      apiKey: 'test-api-key',
+      apiSecret: 'test-api-secret'
+    }
   }
 }));
 
 describe('cdnService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    cloudinary.config = jest.fn();
+    cloudinary.uploader = {
+      upload: jest.fn(),
+      destroy: jest.fn()
+    };
   });
 
   describe('uploadToCDN', () => {
@@ -24,11 +31,12 @@ describe('cdnService', () => {
         vi: { greeting: 'Xin chào', farewell: 'Tạm biệt' }
       };
 
-      const mockResponse = {
-        data: { url: 'https://res.cloudinary.com/test-cloud/raw/upload/i18n/en.json' }
+      const mockUploadResult = {
+        secure_url: 'https://res.cloudinary.com/test-cloud/raw/upload/i18n/en.json',
+        public_id: 'i18n/en'
       };
 
-      axios.post.mockResolvedValue(mockResponse);
+      cloudinary.uploader.upload.mockResolvedValue(mockUploadResult);
 
       const result = await uploadToCDN(mockLanguageData);
 
@@ -45,7 +53,7 @@ describe('cdnService', () => {
         }
       });
 
-      expect(axios.post).toHaveBeenCalledTimes(2);
+      expect(cloudinary.uploader.upload).toHaveBeenCalledTimes(2);
     });
 
     it('should handle upload errors', async () => {
@@ -54,55 +62,10 @@ describe('cdnService', () => {
       };
 
       const error = new Error('Upload failed');
-      axios.post.mockRejectedValue(error);
+      cloudinary.uploader.upload.mockRejectedValue(error);
 
       await expect(uploadToCDN(mockLanguageData)).rejects.toThrow('Upload failed');
       expect(logError).toHaveBeenCalledWith('Failed to upload language data: Upload failed');
-    });
-  });
-
-  describe('uploadLanguageData', () => {
-    it('should upload single language data successfully', async () => {
-      const mockResponse = {
-        data: { url: 'https://res.cloudinary.com/test-cloud/raw/upload/i18n/en.json' }
-      };
-
-      axios.post.mockResolvedValue(mockResponse);
-
-      const result = await uploadLanguageData('en', { greeting: 'Hello' });
-
-      expect(axios.post).toHaveBeenCalledWith(
-        'https://api.cloudinary.com/v1_1/test-cloud/upload',
-        {
-          locale: 'en',
-          data: { greeting: 'Hello' },
-          apiKey: 'test-api-key'
-        }
-      );
-
-      expect(logInfo).toHaveBeenCalledWith('Successfully uploaded language data for locale: en');
-      expect(result).toEqual(mockResponse.data);
-    });
-  });
-
-  describe('deleteLanguageData', () => {
-    it('should delete language data successfully', async () => {
-      const mockResponse = { data: { success: true } };
-      axios.delete.mockResolvedValue(mockResponse);
-
-      const result = await deleteLanguageData('en');
-
-      expect(axios.delete).toHaveBeenCalledWith(
-        'https://api.cloudinary.com/v1_1/test-cloud/delete/en',
-        {
-          headers: {
-            'Authorization': 'Bearer test-api-key'
-          }
-        }
-      );
-
-      expect(logInfo).toHaveBeenCalledWith('Successfully deleted language data for locale: en');
-      expect(result).toEqual(mockResponse.data);
     });
   });
 });

@@ -1,32 +1,68 @@
 {
-  "name": "language-upload-tool",
-  "version": "1.0.0",
-  "description": "A tool to upload language data from a spreadsheet to a CDN.",
-  "type": "module",
+  "name": "google-multiple-language-sheet-cdn",
+  "version": "1.1.1",
+  "description": "🌍 Multi-language tool for syncing translations from Google Sheets to Cloudinary CDN with Vietnamese UI",
   "main": "src/cli.js",
-  "scripts": {
-    "build": "node src/tasks/buildLocales.js",
-    "upload": "node src/tasks/uploadLocales.js",
-    "publish": "node scripts/publish.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+  "type": "module",
+  "bin": {
+    "lang-tool": "./src/cli.js"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {}
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "multi-language", 
+    "translation",
+    "google-sheets",
+    "cloudinary",
+    "cdn",
+    "vietnam",
+    "vietnamese",
+    "cli-tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vaquan1997/google-multiple-language-sheet-cdn.git"
+  },
+  "author": {
+    "name": "VA Quan",
+    "email": "vaquan1997@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/vaquan1997/google-multiple-language-sheet-cdn#readme",
+  "bugs": {
+    "url": "https://github.com/vaquan1997/google-multiple-language-sheet-cdn/issues"
+  },
+  "scripts": {
+    "start": "node src/cli.js sync",
+    "build": "node src/cli.js build",
+    "upload": "node src/cli.js upload",
+    "sync": "node src/cli.js sync",
+    "status": "node src/cli.js status",
+    "test-sheets": "node src/cli.js test-sheets",
+    "test-cloudinary": "node src/cli.js test-cloudinary",
+    "init": "node src/cli.js init",
+    "test": "jest",
+    "publish": "npm publish --access=public",
+    "debug": "node debug.js"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "chalk": "^5.6.2",
+    "chalk": "^5.3.0",
     "cloudinary": "^1.41.0",
-    "dotenv": "^10.0.0",
+    "commander": "^11.1.0",
+    "dotenv": "^16.3.1",
     "googleapis": "^128.0.0",
-    "node-cron": "^3.0.3",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "jest": "^27.0.0"
-  },
-  "author": "Your Name",
-  "license": "MIT"
+    "jest": "^29.7.0"
+  }
 }

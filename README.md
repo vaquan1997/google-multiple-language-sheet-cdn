@@ -1,33 +1,69 @@
-# Multi-Language Tool - Upload to CDN
+# 🌍 Multi-Language Tool for CDN Upload
 
-🌍 Công cụ tự động hóa việc quản lý và phân phối file ngôn ngữ (i18n) từ Google Sheets lên Cloudinary CDN.
+Công cụ đồng bộ đa ngôn ngữ từ Google Sheets lên Cloudinary CDN với giao diện tiếng Việt và CLI tool hoàn chỉnh.
 
-## 📋 Tính năng
+## ✨ Tính năng
 
-- ✅ **Đọc dữ liệu từ Google Sheets** - Tự động sync dữ liệu translation từ Google Sheets
-- ✅ **Tạo file JSON chuẩn i18n** - Format `{ "key": "value" }` cho các framework như React, Vue, Angular
-- ✅ **Upload lên Cloudinary CDN** - Tự động upload và tạo public URLs
-- ✅ **Hiển thị trạng thái real-time** - Theo dõi quá trình upload với emoji và màu sắc
-- ✅ **Lưu trữ URLs** - Tự động lưu CDN URLs vào file JSON để sử dụng
+- 📊 **Google Sheets Integration**: Đọc dữ liệu dịch thuật từ Google Sheets
+- ☁️ **Cloudinary CDN**: Upload tự động lên CDN với URLs công khai
+- 🔄 **Real-time Sync**: Đồng bộ nhanh chóng từ Sheets sang CDN
+- 🌐 **Multi-format Support**: Xuất JSON i18n cho React, Vue, Angular
+- 🧪 **Testing Tools**: Test kết nối Google Sheets và Cloudinary
+- 📱 **CLI Interface**: Sử dụng dễ dàng qua command line với `lang-tool`
+- 🇻🇳 **Vietnamese UI**: Giao diện và thông báo tiếng Việt
+- 🛠️ **Setup Wizard**: Hướng dẫn cấu hình tự động cho người dùng mới
 
-## 🚀 Cài đặt
+## 🚀 Cài đặt nhanh
 
-### 1. Clone repository
+### Cách 1: Cài đặt global (Khuyến nghị)
+```bash
+# Cài đặt global 
+npm install -g muti-language-tool-upload-to-cdn
+
+# Khởi tạo dự án mới
+mkdir my-translations && cd my-translations
+lang-tool init
+
+# Chỉnh sửa .env file với credentials của bạn
+# Sau đó test kết nối
+lang-tool test-sheets
+lang-tool test-cloudinary
+
+# Đồng bộ translations
+lang-tool sync
+```
+
+### Cách 2: Development từ source
 
 ```bash
+# Clone repository
 git clone https://github.com/vaquan1997/muti-language-tool-upload-to-cdn.git
 cd muti-language-tool-upload-to-cdn
+
+# Cài đặt dependencies
+npm install
+
+# Link tool để sử dụng global
+npm link
+
+# Sử dụng
+lang-tool --help
 ```
 
-### 2. Cài đặt dependencies
+## 🎯 Các lệnh CLI
 
 ```bash
-npm install
-# hoặc
-yarn install
+lang-tool init              # Khởi tạo dự án với setup guide
+lang-tool sync              # Đồng bộ hoàn chỉnh (build + upload)
+lang-tool build             # Chỉ build file local  
+lang-tool upload            # Chỉ upload lên CDN
+lang-tool status            # Xem trạng thái CDN URLs hiện tại
+lang-tool test-sheets       # Test kết nối Google Sheets
+lang-tool test-cloudinary   # Test kết nối Cloudinary
+lang-tool --help            # Hiển thị help
 ```
 
-### 3. Cấu hình môi trường
+## 📋 Hướng dẫn setup chi tiết
 
 Tạo file `.env` trong thư mục gốc:
 
