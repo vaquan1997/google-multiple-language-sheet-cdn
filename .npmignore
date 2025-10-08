@@ -1,0 +1,42 @@
+# Development files
+__tests__/
+debug.js
+test-upload.js
+cdn-urls.json
+.env*
+src/cli-backup.js
+
+# Node modules
+node_modules/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sample/test data
+data/sample/
+public/locales/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Other
+coverage/
+.nyc_output/

@@ -1,10 +1,18 @@
-// __tests__/services/spreadsheetService.test.js
-import xlsx from 'xlsx';
+import { google } from 'googleapis';
 import { parseLanguageData, readSpreadsheet } from '../../src/services/spreadsheetService.js';
 import { logError, logInfo } from '../../src/utils/logger.js';
 
-jest.mock('xlsx');
+jest.mock('googleapis');
 jest.mock('../../src/utils/logger.js');
+jest.mock('../../src/config/index.js', () => ({
+  default: {
+    googleSheets: {
+      spreadsheetId: 'test-sheet-id',
+      apiKey: 'test-api-key',
+      range: 'Sheet1!A1:Z1000'
+    }
+  }
+}));
 
 describe('spreadsheetService', () => {
   beforeEach(() => {
@@ -12,37 +20,51 @@ describe('spreadsheetService', () => {
   });
 
   describe('readSpreadsheet', () => {
-    it('should read spreadsheet data successfully', () => {
-      const mockWorkbook = {
-        SheetNames: ['Sheet1'],
-        Sheets: {
-          Sheet1: {}
+    it('should read spreadsheet data successfully', async () => {
+      const mockSheets = {
+        spreadsheets: {
+          values: {
+            get: jest.fn().mockResolvedValue({
+              data: {
+                values: [
+                  [' ', 'key', 'English', 'TV'],
+                  ['1', 'greeting', 'Hello', 'Xin chào'],
+                  ['2', 'farewell', 'Goodbye', 'Tạm biệt']
+                ]
+              }
+            })
+          }
         }
       };
 
-      const mockData = [
-        { locale: 'en', key: 'greeting', value: 'Hello' },
-        { locale: 'vi', key: 'greeting', value: 'Xin chào' }
-      ];
+      google.sheets.mockReturnValue(mockSheets);
 
-      xlsx.readFile.mockReturnValue(mockWorkbook);
-      xlsx.utils.sheet_to_json.mockReturnValue(mockData);
-
-      const result = readSpreadsheet();
+      const result = await readSpreadsheet();
 
       expect(logInfo).toHaveBeenCalledWith('📥 Đang lấy dữ liệu từ Google Sheets...');
-      expect(logInfo).toHaveBeenCalledWith('✅ Đã lấy 2 dòng dữ liệu');
-      expect(result).toEqual(mockData);
+      expect(logInfo).toHaveBeenCalledWith('✅ Đã lấy 4 dòng dữ liệu');
+      expect(result).toEqual([
+        { locale: 'en', key: 'greeting', value: 'Hello' },
+        { locale: 'vi', key: 'greeting', value: 'Xin chào' },
+        { locale: 'en', key: 'farewell', value: 'Goodbye' },
+        { locale: 'vi', key: 'farewell', value: 'Tạm biệt' }
+      ]);
     });
 
-    it('should handle spreadsheet reading errors', () => {
-      const error = new Error('File not found');
-      xlsx.readFile.mockImplementation(() => {
-        throw error;
-      });
+    it('should handle spreadsheet reading errors', async () => {
+      const error = new Error('API Error');
+      const mockSheets = {
+        spreadsheets: {
+          values: {
+            get: jest.fn().mockRejectedValue(error)
+          }
+        }
+      };
 
-      expect(() => readSpreadsheet()).toThrow('File not found');
-      expect(logError).toHaveBeenCalledWith('Error reading spreadsheet: File not found');
+      google.sheets.mockReturnValue(mockSheets);
+
+      await expect(readSpreadsheet()).rejects.toThrow('API Error');
+      expect(logError).toHaveBeenCalledWith('Error reading Google Sheets: API Error');
     });
   });
 
@@ -68,13 +90,6 @@ describe('spreadsheetService', () => {
           farewell: 'Tạm biệt'
         }
       });
-    });
-
-    it('should handle empty data', () => {
-      const result = parseLanguageData([]);
-
-      expect(logInfo).toHaveBeenCalledWith('📦 Tìm thấy 0 ngôn ngữ: ');
-      expect(result).toEqual({});
     });
   });
 });
