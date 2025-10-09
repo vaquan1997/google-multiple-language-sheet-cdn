@@ -22,19 +22,24 @@ export const uploadToCDN = async (languageData) => {
     for (const [locale, data] of Object.entries(languageData)) {
       const jsonContent = JSON.stringify(data, null, 2);
       
-      // Upload as raw file to Cloudinary
+      // Upload as raw file to Cloudinary with fixed version
       const result = await cloudinary.uploader.upload(
         `data:application/json;base64,${Buffer.from(jsonContent).toString('base64')}`,
         {
           public_id: `i18n/${locale}`,
           resource_type: 'raw',
           format: 'json',
-          overwrite: true
+          overwrite: true,
+          invalidate: true,  // Thêm dòng này để invalidate cache
+          version: false,     // Thêm dòng này để không tạo version number
+          use_filename: false,
+          unique_filename: false
         }
       );
       
-      uploadedUrls[locale] = result.secure_url;
-      logInfo(`✅ Đã upload ${locale}.json: ${result.secure_url}`);
+      const fixedUrl = `https://res.cloudinary.com/${config.cdn.cloudName}/raw/upload/i18n/${locale}.json`;
+      uploadedUrls[locale] = fixedUrl;
+      logInfo(`✅ Đã upload ${locale}.json: ${fixedUrl}`);
     }
 
     logInfo('✨ Hoàn thành! Upload thành công tất cả ngôn ngữ');
@@ -55,12 +60,19 @@ export const uploadLanguageData = async (locale, data) => {
         public_id: `i18n/${locale}`,
         resource_type: 'raw',
         format: 'json',
-        overwrite: true
+        overwrite: true,
+        invalidate: true,
+        version: false,
+        use_filename: false,
+        unique_filename: false
       }
     );
     
+    // Trả về URL cố định
+    const fixedUrl = `https://res.cloudinary.com/${config.cdn.cloudName}/raw/upload/i18n/${locale}.json`;
+    
     logInfo(`Successfully uploaded language data for locale: ${locale}`);
-    return { url: result.secure_url, public_id: result.public_id };
+    return { url: fixedUrl, public_id: result.public_id };
   } catch (error) {
     logError(`Failed to upload language data for locale: ${locale}`, error);
     throw error;
