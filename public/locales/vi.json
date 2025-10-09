@@ -5,5 +5,15 @@
   "write_vietnamese_content_first_and_it_will_automatically_generate_english_can_edit_english": "Viết nội dung tiếng việt trước và nó sẽ tự gen ra tiếng Anh, có thể chỉnh sửa tiếng anh",
   "adhd_testing": "Kiểm nghiệm ADHD",
   "diagnose": "Chẩn đoán",
-  "other_information": "Thông tin khác"
+  "other_information": "Thông tin khác",
+  "hello": "Xin chào",
+  "log_in": "Đăng nhập",
+  "register": "Đăng kí",
+  "send": "Gửi",
+  "check": "Kiểm tra",
+  "automatic": "Tự động",
+  "go": "đi",
+  "move": "di chuyển",
+  "hyperactivity": "tăng động",
+  "amnesia": "mất trí nhớ"
 }
