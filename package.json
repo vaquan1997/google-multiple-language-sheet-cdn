@@ -1,6 +1,6 @@
 {
   "name": "google-multiple-language-sheet-cdn",
-  "version": "1.1.3",
+  "version": "1.1.6",
   "description": "🌍 Multi-language tool for syncing translations from Google Sheets to Cloudinary CDN with Vietnamese UI",
   "main": "src/cli.js",
   "type": "module",
@@ -19,7 +19,7 @@
   "keywords": [
     "i18n",
     "internationalization",
-    "multi-language", 
+    "multi-language",
     "translation",
     "google-sheets",
     "cloudinary",

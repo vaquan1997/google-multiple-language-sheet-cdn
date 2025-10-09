@@ -18,7 +18,10 @@ Công cụ đồng bộ đa ngôn ngữ từ Google Sheets lên Cloudinary CDN v
 ### Cách 1: Cài đặt global (Khuyến nghị)
 ```bash
 # Cài đặt global 
-npm install -g muti-language-tool-upload-to-cdn
+npm install -g google-multiple-language-sheet-cdn
+
+# Cập nhật lên phiên bản mới nhất
+npm update -g google-multiple-language-sheet-cdn
 
 # Khởi tạo dự án mới
 mkdir my-translations && cd my-translations
@@ -37,8 +40,8 @@ lang-tool sync
 
 ```bash
 # Clone repository
-git clone https://github.com/vaquan1997/muti-language-tool-upload-to-cdn.git
-cd muti-language-tool-upload-to-cdn
+git clone https://github.com/vaquan1997/google-multiple-language-sheet-cdn.git
+cd google-multiple-language-sheet-cdn
 
 # Cài đặt dependencies
 npm install
@@ -60,6 +63,8 @@ lang-tool upload            # Chỉ upload lên CDN
 lang-tool status            # Xem trạng thái CDN URLs hiện tại
 lang-tool test-sheets       # Test kết nối Google Sheets
 lang-tool test-cloudinary   # Test kết nối Cloudinary
+lang-tool update            # Cập nhật tool lên phiên bản mới nhất
+lang-tool --version         # Xem phiên bản hiện tại
 lang-tool --help            # Hiển thị help
 ```
 
@@ -350,6 +355,32 @@ output: {
 }
 ```
 
+## 🔄 Cập nhật công cụ
+
+### Kiểm tra phiên bản hiện tại
+```bash
+lang-tool --version
+```
+
+### Cập nhật lên phiên bản mới nhất  
+```bash
+# Cách 1: Sử dụng lệnh có sẵn
+lang-tool update
+
+# Cách 2: Cập nhật thủ công
+npm update -g google-multiple-language-sheet-cdn
+
+# Cách 3: Cài đặt lại hoàn toàn
+npm uninstall -g google-multiple-language-sheet-cdn
+npm install -g google-multiple-language-sheet-cdn@latest
+```
+
+### Kiểm tra sau khi cập nhật
+```bash
+lang-tool --version
+lang-tool --help
+```
+
 ## 🤝 Contributing
 
 1. Fork repository
@@ -368,4 +399,18 @@ MIT License - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
 
 ---
 
-📧 **Hỗ trợ:** Nếu gặp vấn đề, vui lòng tạo [Issue](https://github.com/vaquan1997/muti-language-tool-upload-to-cdn/issues) trên GitHub.
+📧 **Hỗ trợ:** Nếu gặp vấn đề, vui lòng tạo [Issue](https://github.com/vaquan1997/google-multiple-language-sheet-cdn/issues) trên GitHub.
+
+## 📊 Phiên bản và Changelog
+
+### v1.1.6 (Latest)
+- ✅ Fix Cloudinary URLs cố định (không thay đổi version)
+- ✅ Thêm lệnh `lang-tool update` 
+- ✅ Cập nhật README với hướng dẫn update
+- ✅ Sửa package name cho đúng với npm registry
+
+### v1.1.5
+- ✅ CLI interface hoàn chỉnh
+- ✅ Vietnamese UI
+- ✅ Google Sheets + Cloudinary integration
+- ✅ Public npm package
